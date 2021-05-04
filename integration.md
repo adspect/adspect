@@ -92,6 +92,7 @@ WordPress has a file named `index.php` in its [root folder](https://www.wpbeginn
 That is the file where you should add that single line of PHP code discussed above. Place the `filter.php` file into the same folder.
 
 Most other PHP-based CMS software also has such `index.php` entryway files in their root folders.
+**When using reverse PHP integration with WordPress, please note that the "White page" link should be empty, because of the CMS permalink structre.
 
 ## JavaScript integration
 
