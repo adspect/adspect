@@ -143,14 +143,14 @@ the beginning of the file:
 
 ```php
 <?php
- define('ADSPECT_DEBUG', 0);
+ defined('ADSPECT_DEBUG') or define('ADSPECT_DEBUG', 0);
 ```
 
 and replace `0` with `1` in it:
 
 ```php
 <?php
- define('ADSPECT_DEBUG', 1);
+ defined('ADSPECT_DEBUG') or define('ADSPECT_DEBUG', 1);
 ```
 
 If your PHP integration does not work, e.g. you observe an HTTP 500 error, then you will see error details in
