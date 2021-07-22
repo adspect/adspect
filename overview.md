@@ -98,7 +98,7 @@ a tracker with support for landing pages written in PHP. Our files are referred 
 
 The code is carefully written to be compatible with a wide variety of web hosting environments, ranging from
 virtual hosting and VPS to dedicated servers and Amazon AWS. Both Windows and Unix-like operating systems are
-supported, to the extent supported by PHP. **PHP 5.4 or higher is required!**
+supported, to the extent supported by PHP. **PHP 5.6 or higher is required!**
 
 **The only requirement is that PHP needs to have [cURL support](https://www.php.net/manual/en/book.curl.php)**.
 You may check if cURL is supported by examining [phpinfo](https://www.php.net/manual/en/function.phpinfo.php).
