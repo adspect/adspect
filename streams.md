@@ -44,38 +44,122 @@ This is your actual landing page or offer that you are going to advertise. The "
 to indicate that this is the page that makes you money. You may specify up to 254 money pages for A/B testing.
 Traffic will be distributed across them according to rules of a particular rotator; see the [Rotator paragraph](#rotator) below.
 
-There are two types of values that may be specified: page file name or an URL. Page file name is the advised way
-of specifying money page--it is the name of an HTML or PHP file of your real landing page that *must* be
-located in the same directory as where you put `index.php` after stream creation, i.e. in the root directory of
-your landing page.
+Depending on desired action (see [Action](#action) below), this field may contain various values such as
+URLs, paths to local files or directories, PHP or JavaScript scripts, and others.  Aside from special cases
+described below for particular actions, two primary types of value are URLs and paths.
 
-The file name should not be easily guessable because it lets determined moderators or competitors figure out
-the URL of your real landing page. Pick a random long file name.
+* A URL is a link that you normally see in your browser's address bar, e.g. `https://example.com/page.php`.
+  URLs *must* start with scheme: `http://` or `https://`; otherwise they will be treated as paths.
+  The most often use case for URL is a direct offer link taken from a CPA network.  This may be optimal for some
+  campaigns, however, external URL implies an additional HTTP redirect, with associated latency and traffic loss
+  considerations, especially on low-quality ad formats like popunder.
 
-*Do not* name your money page `index.html` or `index.htm`! Apart from being easily guessable (i.e. trivially uncloakable),
-those file names may be in conflict with your existing web server configuration, leading to unforeseen problems.
+  You may also use various non-HTTP URLs to achieve specialized tasks on your visitors' devices.
+  Some of the more common examples:
 
-To put it all together: if you have a landing page directory and the actual landing page file inside named `index.php`
-(as is most often the case), then you should first rename that `index.php` file to something hard-to-guess like `re3NBX1XtH.php`,
-then put our special `index.php` file next to `re3NBX1XtH.php` in the same directory after stream creation.
-Our `index.php` will then display the real file `re3NBX1XtH.php` to approved visitors.
+  * `mailto:user@example.com` will open up a default e-mail program in compose mode;
+  * `tel:+08001234567` will dial the number on mobile devices and some desktops with installed telephony software;
+  * `market://details?id=app` will bring the visitor to a particular app's page in Google Play.
 
-Alternatively, you may use an URL instead, for instance a direct offer URL taken from an affiliate network.
-This may be optimal for some campaigns, however, external URL implies an additional HTTP redirect, with associated
-latency and traffic loss considerations, especially on low-quality ad formats like popunder.
+  This is particularly useful with the so called "deep links" that link to mobile in-app content.
+  Please note that these URLs are normally only supported by redirect-type actions.
 
-You may also use various non-HTTP URLs to achieve specialized tasks on your visitors' devices.
-Some of the more common examples:
+* A path to a local file or directory, e.g. `page.php` or `/landers/landing.html`.  The word "local" here means
+  that the file or directory the path points to is supposed to reside on the same server where you put our PHP file
+  (more on PHP files will be described in the [Intergration](integration.md) chapter), i.e. on the same domain
+  that will be used for your cloaked link.  Paths in turn may be absolute or relative.
 
-* `mailto:user@example.com` will open up a default e-mail program in compose mode;
-* `tel:+08001234567` will dial the number on mobile devices and some desktops with installed telephony software;
-* `market://details?id=app` will bring the visitor to a particular app's page in Google Play.
+  Absolute paths start with `/` and are treated as if they are relative to the website's root directory--the domain's
+  root.  For example, the path `/landers/landing.html` on domain `example.com` will point to
+  `https://example.com/landers/landing.html`.
 
-This is particularly useful with the so called "deep links" that link to mobile in-app content.
+  Relative paths are paths that *do not* start with `/`, and their meaning depends on particular action and
+  integration type.
 
-### Param Setting
+### Action
 
-Param stands for "URL parameters passthrough." When enabled, parameters passed in the incoming URL will be
+This is the action to peform on a visitor.  Adspect supports many different types of actions grouped into a few
+logical classes.  You will normally use just two or three of the most common actions; the rest are meant for
+various special cases.
+
+#### Without Redirect
+
+* Local file (a.k.a. "zero redirect") -- the specified local file is displayed without redirect, either by processing
+  it as PHP code (for PHP and HTML files), or serving as-is (for other types of files.)  **This is the most secure type
+  of action, and we strongly advise to use it at all times when possible.**
+
+  Usually, it is the path to an HTML or PHP file of your real landing page.  In this case, it is *highly desired*
+  that you place our PHP file into the same directory.  If you use a subdirectory, then it will break all relative URLs
+  in the page because the visitor's browser will not be aware of that subdirectory--there's no redirect to inform it.
+
+  You may use a path to a local directory without specifying an explicit file name in it.  In this case, Adspect
+  will try to locate and display `index.php`, `index.html`, or `index.htm` file inside, in that order, mimicking
+  the usual behavior of web servers such as Apache or NGINX.
+
+  You may also use a path to any non-HTML local file.  The browser will download that file if it cannot display it.
+
+  * Absolute paths are treated relative to the root of the domain where you upload our PHP file.
+  * Relative paths are treated relative to the directory where you upload our PHP file.  For example, if you
+    specify your path as `landers/landing.html` and upload our PHP file as `https://example.com/ads/index.php`,
+    then it will try to display the page at `https://example.com/ads/landers/landing.html`.
+  * URLs may also be specified, in which case the domain part will be ignored.
+
+* [Reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) -- display a remote URL on your domain by smart HTTP request proxying.
+  It essentially creates a fully dynamic, navigatable replica of another website.  Most websites are proxied
+  correctly, however, in some edge cases the result may appear broken.  This action is best suited for
+  displaying remote safe pages as if they were located on your own domain.  **Advised and production-ready.**
+
+* Custom HTTP response code -- the web server will respond with a custom [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
+  The code should be specified in the page field, e.g. if you put "404", then the visitor will see a "404 not found"
+  browser page.  This action may be used to simulate a server-side error with codes like 500 or 503.
+
+* No action -- nothing will be done, the visitor will be left where they landed.  This action is meant to be used
+  for safe pages with [reverse PHP integration](integration.md#reverse-php-integration).
+
+#### With Redirect
+
+* [HTTP 301 Moved Permanently](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/301) -- the permanent redirect.
+  These redirect responses may be cached by browsers, which means that if a visitor goes by the same cloaked link again,
+  then the browser may instantly redirect them to where they were redirected before (the cached link), bypassing the cloaker.
+
+  *Please note that this behavior is at the sole discretion of a particular browser implementation and thereby must not
+  be relied upon.*
+
+* [HTTP 302 Found](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302) -- the usual redirection as you know it,
+  also known as a temporary redirect.  These redirect responses are not cached by browsers, hence accessing the same
+  cloaked link again will lead to re-scanning the visitor by Adspect.
+
+  **If you don't know which redirect type to choose, then go with HTTP 302 Found redirect.**
+
+* [HTTP 303 See Other](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/303) -- yet another type of HTTP redirect
+  that behaves similarly HTTP 302 Found.  Included for completeness.
+
+* HTTP Refresh header -- a special type of HTTP redirect that is performed with an HTTP 200 OK response code.
+  It may be used in rare cases where only HTTP 30x redirects are forbidden but other types are not.
+
+* HTML meta refresh -- an HTML-only variant of the previous HTTP Refresh redirect performed with
+  a [`<meta>` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta).  Use cases are similar.
+  Some types of "dumb" bots do not follow these redirects.
+
+* Display in iframe -- display a file or URL inside an [`<iframe>` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)
+  without changing the URL in the browser's address bar.  Please note that websites may forbid displaying their
+  content inside an iframe by using the [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
+  response header, so this action may not work.
+
+  Contrary to what is widely believed, iframing is considered a redirect by many ad networks because it emits
+  a trackable HTTP request.  **It is not as safe as it may seem to be.**  Consider using reverse proxy instead.
+
+#### Remote Code Execution
+
+* Execute PHP code -- this action lets you execute arbitrary PHP code for the visitor.
+  Put the code into the page field, for example: `echo 'Hello, world!';`
+
+* Execute JavaScript code -- this action lets you execute arbitrary JavaScript code for the visitor.
+  Put the code into the page field, for example: `alert("Hello, world!");`
+
+### PT Checkbox
+
+PT stands for "URL parameters passthrough." When enabled, parameters passed in the incoming URL will be
 appended to money page URL or file.
 
 For example, consider the stream's money page is configured as follows:
@@ -168,20 +252,12 @@ This rotator is useful for automatic time-based switching of domains.
 
 ## White Page
 
-This is the safe page to show to moderators, robots, scrapers, etc. It should not contain any sensitive content
-that may put your affiliate campaign in danger or in violation of any rules. Everything described above for
-the money page also applies to the white page--you may use an URL or a landing page file. In the latter case,
-if your money page is also a self-hosted landing page, you will need to effectively merge two landing page
-directories together to meet the requirement that both page files are located in the root of the common directory.
+This is the safe page to show to moderators, robots, scrapers, etc.  It should not contain any sensitive content
+that may put your affiliate campaign in danger or in violation of any rules.  Everything described above for
+the money page fields also applies to the white page.
 
-We strongly advise using a landing page file over external URL for white page. This has to do with suspicion and
-increased scrutiny from compliance teams of certain ad networks that discourage or outright prohibit the use of
-redirects in traffic flow.
-
-## Pass URL Parameters to White URL
-
-When enabled, parameters passed in the incoming URL will be appended to white page URL or file. This setting works
-the same way like the Param setting of money pages.
+**In most cases, your white page MUST be displayed without redirects!**  Consider using either a local file
+or a reverse proxy action.
 
 ## VLA™
 
