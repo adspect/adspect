@@ -2,7 +2,7 @@
 
 Integration is the process of attaching an Adspect stream to your traffic flow, be it for active filtering
 or passive statistics collection.  You will need a server (hosting) with PHP 5.6+ language support and enabled
-[`php-curl`](https://www.php.net/manual/en/book.curl.php) and [`php-json`](https://www.php.net/manual/en/book.json.php)
+[php-curl](https://www.php.net/manual/en/book.curl.php) and [php-json](https://www.php.net/manual/en/book.json.php)
 PHP extensions.
 
 After creating a stream you will be immediately brought to the integration page.  This page may also be accessed

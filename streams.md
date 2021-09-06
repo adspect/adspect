@@ -44,17 +44,15 @@ This is your actual landing page or offer that you are going to advertise. The "
 to indicate that this is the page that makes you money. You may specify up to 254 money pages for A/B testing.
 Traffic will be distributed across them according to rules of a particular rotator; see the [Rotator paragraph](#rotator) below.
 
-Depending on desired action (see [Action](#action) below), this field may contain various values such as
-URLs, paths to local files or directories, PHP or JavaScript scripts, and others.  Aside from special cases
+Depending on the desired action (see [Action](#action) below), this field may contain various values such
+as URLs, paths to local files or directories, PHP or JavaScript code, and others.  Aside from special cases
 described below for particular actions, two primary types of value are URLs and paths.
 
 * A URL is a link that you normally see in your browser's address bar, e.g. `https://example.com/page.php`.
-  URLs *must* start with scheme: `http://` or `https://`; otherwise they will be treated as paths.
-  The most often use case for URL is a direct offer link taken from a CPA network.  This may be optimal for some
-  campaigns, however, external URL implies an additional HTTP redirect, with associated latency and traffic loss
-  considerations, especially on low-quality ad formats like popunder.
+  This may be your offer in a CPA network, a smartlink, a tracking link in a third party tracker, a TDS stream, etc.
+  URLs *must* start with `http://` or `https://`, otherwise they will be treated as paths.
 
-  You may also use various non-HTTP URLs to achieve specialized tasks on your visitors' devices.
+  With redirect actions, you may also use various non-HTTP URLs to do special tasks on your visitors' devices.
   Some of the more common examples:
 
   * `mailto:user@example.com` will open up a default e-mail program in compose mode;
@@ -62,7 +60,6 @@ described below for particular actions, two primary types of value are URLs and 
   * `market://details?id=app` will bring the visitor to a particular app's page in Google Play.
 
   This is particularly useful with the so called "deep links" that link to mobile in-app content.
-  Please note that these URLs are normally only supported by redirect-type actions.
 
 * A path to a local file or directory, e.g. `page.php` or `/landers/landing.html`.  The word "local" here means
   that the file or directory the path points to is supposed to reside on the same server where you put our PHP file
@@ -78,70 +75,98 @@ described below for particular actions, two primary types of value are URLs and 
 
 ### Action
 
-This is the action to peform on a visitor.  Adspect supports many different types of actions grouped into a few
+This is the action to peform for a visitor.  Adspect supports many different types of actions grouped into a few
 logical classes.  You will normally use just two or three of the most common actions; the rest are meant for
 various special cases.
 
-#### Without Redirect
+*The actions listed below work as described in PHP integration only.*  JavaScript integration is much more limited
+in its set of available technical tools to perform actions.  Actions that behave differently in JavaScript integration
+are explicitly detailed as such.
 
-* Local file (a.k.a. "zero redirect") -- the specified local file is displayed without redirect, either by processing
+#### Actions Without Redirect
+
+* **Local file ("zero redirect")** -- the specified local file is displayed without redirect, either by processing
   it as PHP code (for PHP and HTML files), or serving as-is (for other types of files.)  **This is the most secure type
   of action, and we strongly advise to use it at all times when possible.**
 
   Usually, it is the path to an HTML or PHP file of your real landing page.  In this case, it is *highly desired*
-  that you place our PHP file into the same directory.  If you use a subdirectory, then it will break all relative URLs
+  that you place our PHP file into the same directory.  If you use a subdirectory, then it will break all relative links
   in the page because the visitor's browser will not be aware of that subdirectory--there's no redirect to inform it.
 
-  You may use a path to a local directory without specifying an explicit file name in it.  In this case, Adspect
-  will try to locate and display `index.php`, `index.html`, or `index.htm` file inside, in that order, mimicking
-  the usual behavior of web servers such as Apache or NGINX.
+  * Absolute paths are treated relative to the root of the domain where you upload our PHP file.  For example, if you
+    specify your path as `/landers/landing.html` and upload our PHP file as `https://example.com/ads/index.php`,
+    then it will try to display the page at `https://example.com/landers/landing.html`.
 
-  You may also use a path to any non-HTML local file.  The browser will download that file if it cannot display it.
-
-  * Absolute paths are treated relative to the root of the domain where you upload our PHP file.
   * Relative paths are treated relative to the directory where you upload our PHP file.  For example, if you
     specify your path as `landers/landing.html` and upload our PHP file as `https://example.com/ads/index.php`,
     then it will try to display the page at `https://example.com/ads/landers/landing.html`.
+
   * URLs may also be specified, in which case the domain part will be ignored.
 
-* [Reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) -- display a remote URL on your domain by smart HTTP request proxying.
+  You may use a path to a local directory without specifying an explicit file name in it.  In this case, Adspect
+  will try to locate and display `index.php`, `index.html`, or `index.htm` file inside, in that order, mimicking
+  the usual behavior of web servers.  This is error-prone, so try to avoid such implicities.
+
+  You may also use a path to any non-HTML local file.  The browser will download that file if it cannot display it.
+  For example, you may specify your money page as `downloads/app.apk` to cloak direct APK downloads.
+
+  In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
+
+* [**Reverse proxy**](https://en.wikipedia.org/wiki/Reverse_proxy) -- display a remote URL on your domain by smart HTTP request proxying.
   It essentially creates a fully dynamic, navigatable replica of another website.  Most websites are proxied
   correctly, however, in some edge cases the result may appear broken.  This action is best suited for
   displaying remote safe pages as if they were located on your own domain.  **Advised and production-ready.**
 
-* Custom HTTP response code -- the web server will respond with a custom [HTTP status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes).
-  The code should be specified in the page field, e.g. if you put "404", then the visitor will see a "404 not found"
-  browser page.  This action may be used to simulate a server-side error with codes like 500 or 503.
+  In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
+  Please sit tight: **proxying will work in JavaScript integration mode very soon**, just like the so-called `insert_html`
+  modus operandi of other cloakers.
 
-* No action -- nothing will be done, the visitor will be left where they landed.  This action is meant to be used
-  for safe pages with [reverse PHP integration](integration.md#reverse-php-integration).
+* [**Custom HTTP response code**](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) -- the web server will respond
+  with a custom HTTP status code.  The code should be specified in the page field.  For example, if you put "404",
+  then a visitor will see the usual "404 Not Found" browser page.  This action may be used to simulate a server-side error
+  with 50x codes or explicitly block access to a resource with a 403 Forbidden response.
 
-#### With Redirect
+  In JavaScript integration, this action does nothing.
 
-* [HTTP 301 Moved Permanently](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/301) -- the permanent redirect.
+* **No action** -- nothing will be done, the visitor will be left where they landed.  This action is meant to be used
+  for safe pages together with [reverse PHP integration](integration.html#reverse-php-integration).
+
+#### Actions With Redirect
+
+* [**HTTP 301 Moved Permanently**](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/301) -- the permanent redirect.
   These redirect responses may be cached by browsers, which means that if a visitor goes by the same cloaked link again,
   then the browser may instantly redirect them to where they were redirected before (the cached link), bypassing the cloaker.
 
   *Please note that this behavior is at the sole discretion of a particular browser implementation and thereby must not
   be relied upon.*
 
-* [HTTP 302 Found](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302) -- the usual redirection as you know it,
+  In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
+
+* [**HTTP 302 Found**](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/302) -- the usual redirection as you know it,
   also known as a temporary redirect.  These redirect responses are not cached by browsers, hence accessing the same
   cloaked link again will lead to re-scanning the visitor by Adspect.
 
   **If you don't know which redirect type to choose, then go with HTTP 302 Found redirect.**
 
-* [HTTP 303 See Other](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/303) -- yet another type of HTTP redirect
+  In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
+
+* [**HTTP 303 See Other**](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/303) -- yet another type of HTTP redirect
   that behaves similarly HTTP 302 Found.  Included for completeness.
 
-* HTTP Refresh header -- a special type of HTTP redirect that is performed with an HTTP 200 OK response code.
+  In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
+
+* **HTTP Refresh header** -- a special type of HTTP redirect that is performed with an HTTP 200 OK response code.
   It may be used in rare cases where only HTTP 30x redirects are forbidden but other types are not.
 
-* HTML meta refresh -- an HTML-only variant of the previous HTTP Refresh redirect performed with
-  a [`<meta>` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta).  Use cases are similar.
+  In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
+
+* **HTML meta refresh** -- an HTML-only variant of the previous HTTP Refresh redirect performed with
+  a [<meta> tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta).  Use cases are similar.
   Some types of "dumb" bots do not follow these redirects.
 
-* Display in iframe -- display a file or URL inside an [`<iframe>` tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)
+  In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
+
+* **Display in iframe** -- display a file or URL inside an [<iframe> tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)
   without changing the URL in the browser's address bar.  Please note that websites may forbid displaying their
   content inside an iframe by using the [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
   response header, so this action may not work.
@@ -149,13 +174,23 @@ various special cases.
   Contrary to what is widely believed, iframing is considered a redirect by many ad networks because it emits
   a trackable HTTP request.  **It is not as safe as it may seem to be.**  Consider using reverse proxy instead.
 
-#### Remote Code Execution
+#### Remote Code Execution Actions
 
-* Execute PHP code -- this action lets you execute arbitrary PHP code for the visitor.
-  Put the code into the page field, for example: `echo 'Hello, world!';`
+* **Execute PHP code** -- this action lets you execute arbitrary PHP code for the visitor.
+  Put the code into the page field, for example: `header('X-Accel-Redirect: /downloads/app.apk');`
 
-* Execute JavaScript code -- this action lets you execute arbitrary JavaScript code for the visitor.
-  Put the code into the page field, for example: `alert("Hello, world!");`
+  This is a special purpose action that lets you do advanced things like performing server-side redirects
+  with the [X-Accel-Redirect response header](https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/)
+  like in the example above.
+
+  In JavaScript integration, this action does nothing.
+
+* **Execute JavaScript code** -- this action lets you execute arbitrary JavaScript code for the visitor.
+  Put the code into the page field, for example: `document.write("<h1>Hello, world!</h1>");`
+
+  This is a special purpose action that may be used to implement complex click processing logic like adding or
+  removing safe page content to turn it into money page, changing element styles, attaching scripts or pixels, etc.
+  It is most useful with [JavaScript integration](integration.html#javascript-integration).
 
 ### PT Checkbox
 
@@ -178,15 +213,16 @@ from both of the above:
 https://example.com/?utm_campaign=sweeps&utm_medium=ppc&utm_content=search
 ```
 
-### Weight Setting
+### Weight
 
 Each money page has associated abstract "weight" that defaults to 10. This setting is taken into account when
 you have more than one money page in A/B testing. Exact meaning of this parameter depends on the rotator used
 by the stream; see the [Rotator paragraph](#rotator) below.
 
-### On Setting
+### ON Checkbox
 
-The On checkbox allows you to turn individual money pages on or off.
+The ON checkbox allows you to turn individual money pages on or off.  This is convenient for removing
+poorly performing offers or landing pages from A/B testing without deleting them from the list.
 
 ### URL Macros
 
