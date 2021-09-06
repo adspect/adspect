@@ -122,6 +122,12 @@ are explicitly detailed as such.
   Please sit tight: **proxying will work in JavaScript integration mode very soon**, just like the so-called `insert_html`
   modus operandi of other cloakers.
 
+* [**X-Accel-Redirect header**](https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/) -- server-side redirect
+  mechanism supported by NGINX and Cherokee web servers.
+
+* [**X-Sendfile header**](https://tn123.org/mod_xsendfile/) -- server-side redirect mechanism supported by Apache, Cherokee,
+  and Lighttpd web servers.
+
 * [**Custom HTTP response code**](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) -- the web server will respond
   with a custom HTTP status code.  The code should be specified in the page field.  For example, if you put "404",
   then a visitor will see the usual "404 Not Found" browser page.  This action may be used to simulate a server-side error
@@ -178,11 +184,7 @@ are explicitly detailed as such.
 #### Remote Code Execution Actions
 
 * **Execute PHP code** -- this action lets you execute arbitrary PHP code for the visitor.
-  Put the code into the page field, for example: `header('X-Accel-Redirect: /downloads/app.apk');`
-
-  This is a special purpose action that lets you do advanced things like performing server-side redirects
-  with the [X-Accel-Redirect response header](https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/)
-  like in the example above.
+  Put the code into the page field, for example: `echo '<h1>Hello, world!</h1>';`
 
   In JavaScript integration, this action does nothing.
 
