@@ -191,6 +191,10 @@ Returns a specified stream.
 
 Creates and returns a new stream. Send stream object in JSON format in request body.
 
+## COPY /streams/&lt;id&gt;
+
+Copies a stream. Send stream object in JSON format in request body.
+
 ## PATCH /streams/&lt;id&gt;
 
 Updates a stream. Send stream object in JSON format in request body.
