@@ -102,7 +102,7 @@ are explicitly detailed as such.
   then it will try to display the page at `https://example.com/ads/landers/landing.html`.
 
   URLs may also be specified, in which case the domain part will be ignored.  For example, you may specify your page
-  as `https://google.com/landing.html', and Adspect will try to display `/landing.html` in the root of your actual domain.
+  as `https://google.com/landing.html`, and Adspect will try to display `/landing.html` in the root of your actual domain.
 
   You may use a path to a local directory without specifying an explicit file name in it.  In this case, Adspect
   will try to locate and display `index.php`, `index.html`, or `index.htm` file inside, in that order, mimicking
