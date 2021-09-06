@@ -125,8 +125,12 @@ are explicitly detailed as such.
 * [**X-Accel-Redirect header**](https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/) -- server-side redirect
   mechanism supported by NGINX and Cherokee web servers.
 
+  In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
+
 * [**X-Sendfile header**](https://tn123.org/mod_xsendfile/) -- server-side redirect mechanism supported by Apache, Cherokee,
   and Lighttpd web servers.
+
+  In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
 
 * [**Custom HTTP response code**](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) -- the web server will respond
   with a custom HTTP status code.  The code should be specified in the page field.  For example, if you put "404",
