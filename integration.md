@@ -1,46 +1,39 @@
 # Integration
 
-After creating a stream you will be immediately brought to the integration page.
-Adspect supports several types of integration that differ in technical details and use cases:
+Integration is the process of attaching an Adspect stream to your traffic flow, be it for active filtering
+or passive statistics collection.  You will need a server (hosting) with PHP 5.6+ language support and enabled
+[`php-curl`](https://www.php.net/manual/en/book.curl.php) and [`php-json`](https://www.php.net/manual/en/book.json.php)
+PHP extensions.
+
+After creating a stream you will be immediately brought to the integration page.  This page may also be accessed
+using the "Code" button next to each stream's name in the list of streams.
+
+Adspect supports three types of integration that differ in technical details and use cases:
 
 * Forward PHP integration via a standalone `index.php` file
 * Reverse PHP integration via including a `filter.php` file
 * JavaScript integration via `<script>` HTML tag embedding using a remote `ajax.php` file
 
-## __sid
+All three integration types employ a special PHP file that is tied to a particular stream in the system.
+This file communicates with Adspect backend servers in real time and performs traffic filtering, acting as a client
+in the client-server architecture of Adspect.  As per Adspect development roadmap, these files will eventually be
+replaced with a full-featured PHP [SDK](https://en.wikipedia.org/wiki/Software_development_kit) in future.
 
-Each stream has its own `index.php`, `filter.php`, and `ajax.php` files wired to it that have the stream ID encoded inside.
-However, you may override that encoded stream ID and send a click to a different stream by putting the destination
-full stream ID into the `__sid` URL parameter, e.g:
-
-```
-https://example.com/index.php?__sid=1ea85c7c-b977-6804-8e69-00162501c2b4
-```
-
-You may find stream ID next to its name in the streams list.
-
-If you need use a different parameter name instead of `__sid`, then open Adspect PHP file in a text editor and replace
-the `__sid` string with the desired name (e.g. `utm_campaign`.)
+*Adspect PHP files do not contain stream settings.* You may change any stream settings at any time, and these changes
+will be picked up on the fly, i.e. you do not need to replace our PHP files after making changes.
 
 ## PHP Integration
 
-PHP integration comes in two flavors: forward and reverse. They differ only in how our PHP files are wired with your
-*locally hosted* landing pages, i.e. which file receives incoming traffic.
+**PHP integration is the most secure type of integration.**  We strongly advise to use this integration type everywhere.
 
-Both integration types support several methods for displaying links to external sites, that is, money and white pages
-specified as URLs in stream settings:
-
-* HTTP redirect -- regular redirection to the remote URL via HTTP 302 status code. This is the usual choice in most cases.
-  **If you don't know which display method to choose, then go with HTTP redirect.**
-
-* HTML iframe -- display the remote URL on your domain inside an `<iframe>` tag. Please note that websites may forbid
-  displaying their content inside an [iframe](https://en.wikipedia.org/wiki/HTML_element#Frames) by using the
-  [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options) response header.
-
-* Reverse proxy -- display the remote URL on your domain by [HTTP request proxying](https://en.wikipedia.org/wiki/Reverse_proxy).
-  This method also suffers from several technical complications and should be used only if no other method fits.
+PHP integration comes in two flavors: forward and reverse.  The only difference between them is how our PHP files
+are wired with your *locally hosted* landing pages, i.e. which file receives incoming traffic.  Both flavors are
+equally secure otherwise.  Choose whichever is more convenient for you.
 
 ## Forward PHP Integration
+
+Forward PHP integration is the most common type of integration. **If you don't know which integration type to choose, then
+go with forward PHP integration.**
 
 In forward PHP integration filtering is done by a special `index.php` file that you place in your landing page directory
 or elsewhere accessible via HTTP. This file acts as an entry point for web traffic and is wired to our servers that
@@ -50,10 +43,7 @@ process clicks and make decisions.
 
 After uploading the `index.php` file to your hosting its URL will be the cloaked URL suitable for use in advertising campaigns.
 Several copies of the same `index.php` file may be used for protecting several offers or landing pages without interfering
-with each other except for shared statistics.
-
-Forward PHP integration is the most common type of integration. **If you don't know which integration type to choose, then
-go with forward PHP integration.**
+with each other.
 
 ## Reverse PHP Integration
 
@@ -65,7 +55,7 @@ in the `filter.php` file inspects it and chooses either to keep the visitor on t
 
 In order to perform reverse PHP integration you first need to download the `filter.php` file on the Reverse PHP Integration
 tab and put it into the folder of your site or landing page. Several copies of the same `filter.php` file may be used for
-protecting several sites or landing pages without interfering with each other except for shared statistics.
+protecting several sites or landing pages without interfering with each other.
 
 Then add the following code as **the first line** of your site or landing page index file (usually named `index.php`)
 above all other code:
@@ -129,6 +119,21 @@ except for shared statistics.
 
 **Please note** that white page setting is ignored in JavaScript integration because visitors initially land on the white page,
 which is the page that our `<script>` tag is placed on.
+
+## Switching Streams
+
+Each stream has its own `index.php`, `filter.php`, and `ajax.php` files wired to it that have the stream ID encoded inside.
+However, you may override that encoded stream ID and send a click to a different stream by putting the destination
+full stream ID into the `__sid` URL parameter, e.g:
+
+```
+https://example.com/index.php?__sid=1ea85c7c-b977-6804-8e69-00162501c2b4
+```
+
+You may find stream ID next to its name in the streams list.
+
+If you need use a different parameter name instead of `__sid`, then open Adspect PHP file in a text editor and replace
+the `__sid` string with the desired name (e.g. `utm_campaign`.)
 
 ## Debugging
 

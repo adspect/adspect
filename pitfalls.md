@@ -43,10 +43,6 @@ file-based display mechanism instead of redirects to external URLs ([detailed he
 Put tracker either before or after our `index.php` file in the traffic flow, but not at both sides.
 Place your tracker geographically close to your target country or region, if possible.
 
-On a side note, we are developing a self-hosted filtering solution that will allow our clients to cut
-network latency by performing real-time filtering right at their tracker side, i.e. without having
-to contact our backend servers on every incoming click. Additional information will be released later.
-
 ## False Positives
 
 False positives occur when a filter bars a legitimate visitor, falsely classifying them as malicious.

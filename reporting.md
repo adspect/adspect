@@ -143,4 +143,5 @@ networks) or for debug purposes:
 * `RULE` -- visitors blocked by a user-defined URL rule;
 * `UARE` -- visitors whose user agent matched customer-supplied regular expression;
 * `REF` -- visitors whose referer matched customer-supplied regular expression;
-* `NOPAGE` -- no money page specified in stream settings, or all money pages are turned off.
+* `NOPAGE` -- no money page specified in stream settings, or all money pages are turned off;
+* `EMBED` -- embeddeding detected (`<iframe>`, `<embed>`, `<object>`, etc.)
