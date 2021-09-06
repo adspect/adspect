@@ -48,7 +48,7 @@ Depending on the desired action (see [Action](#action) below), this field may co
 as URLs, paths to local files or directories, PHP or JavaScript code, and others.  Aside from special cases
 described below for particular actions, two primary types of value are URLs and paths.
 
-* A URL is a link that you normally see in your browser's address bar, e.g. `https://example.com/page.php`.
+* **A URL** is a link that you normally see in your browser's address bar, e.g. `https://example.com/page.php`.
   This may be your offer in a CPA network, a smartlink, a tracking link in a third party tracker, a TDS stream, etc.
   URLs *must* start with `http://` or `https://`, otherwise they will be treated as paths.
 
@@ -61,7 +61,7 @@ described below for particular actions, two primary types of value are URLs and 
 
   This is particularly useful with the so called "deep links" that link to mobile in-app content.
 
-* A path to a local file or directory, e.g. `page.php` or `/landers/landing.html`.  The word "local" here means
+* **A path to a local file or directory,** e.g. `page.php` or `/landers/landing.html`.  The word "local" here means
   that the file or directory the path points to is supposed to reside on the same server where you put our PHP file
   (more on PHP files will be described in the [Intergration](integration.md) chapter), i.e. on the same domain
   that will be used for your cloaked link.  Paths in turn may be absolute or relative.
@@ -93,15 +93,16 @@ are explicitly detailed as such.
   that you place our PHP file into the same directory.  If you use a subdirectory, then it will break all relative links
   in the page because the visitor's browser will not be aware of that subdirectory--there's no redirect to inform it.
 
-  * Absolute paths are treated relative to the root of the domain where you upload our PHP file.  For example, if you
-    specify your path as `/landers/landing.html` and upload our PHP file as `https://example.com/ads/index.php`,
-    then it will try to display the page at `https://example.com/landers/landing.html`.
+  Absolute paths are treated relative to the root of the domain where you upload our PHP file.  For example, if you
+  specify your path as `/landers/landing.html` and upload our PHP file as `https://example.com/ads/index.php`,
+  then it will try to display the page at `https://example.com/landers/landing.html`.
 
-  * Relative paths are treated relative to the directory where you upload our PHP file.  For example, if you
-    specify your path as `landers/landing.html` and upload our PHP file as `https://example.com/ads/index.php`,
-    then it will try to display the page at `https://example.com/ads/landers/landing.html`.
+  Relative paths are treated relative to the directory where you upload our PHP file.  For example, if you
+  specify your path as `landers/landing.html` and upload our PHP file as `https://example.com/ads/index.php`,
+  then it will try to display the page at `https://example.com/ads/landers/landing.html`.
 
-  * URLs may also be specified, in which case the domain part will be ignored.
+  URLs may also be specified, in which case the domain part will be ignored.  For example, you may specify your page
+  as `https://google.com/landing.html', and Adspect will try to display `/landing.html` in the root of your actual domain.
 
   You may use a path to a local directory without specifying an explicit file name in it.  In this case, Adspect
   will try to locate and display `index.php`, `index.html`, or `index.htm` file inside, in that order, mimicking
@@ -161,12 +162,12 @@ are explicitly detailed as such.
   In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
 
 * **HTML meta refresh** -- an HTML-only variant of the previous HTTP Refresh redirect performed with
-  a [<meta> tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta).  Use cases are similar.
+  a [`<meta>` HTML tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta).  Use cases are similar.
   Some types of "dumb" bots do not follow these redirects.
 
   In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
 
-* **Display in iframe** -- display a file or URL inside an [<iframe> tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)
+* **Display in iframe** -- display a file or URL inside an [`<iframe>` HTML tag](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/iframe)
   without changing the URL in the browser's address bar.  Please note that websites may forbid displaying their
   content inside an iframe by using the [X-Frame-Options](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options)
   response header, so this action may not work.
