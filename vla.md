@@ -1,6 +1,6 @@
 # VLA™
 
-VLA™ stands for "Virtual Learning Appliance." It is the trademark of our machine learning technology
+VLA™ stands for Virtual Learning Appliance.  It is the trademark of our machine learning technology
 that powers the most advanced filtering capabilities of Adspect. In simple terms, it is a self-adapting
 mathematical machine that observes incoming traffic and finds suspicious recurring patterns in its
 fingerprints (thousands of features in every fingerprint) that indicate moderators, fraud, and other
@@ -29,3 +29,12 @@ to filter out a visitor. For example, if you set VLA precision to 95%, then VLA 
 visitors for which it yields certainty of 95% and above, but will let through those that it is less
 confident about. This single precision parameter lets you fine-tune the system in accordance to your
 own idea of what is "confident enough". Our tests have shown that 95% is a good value to begin with.
+
+## Technical Notes
+
+Under the hood, VLA is a self-taught discrete [Bayes classifier](https://en.wikipedia.org/wiki/Bayes_classifier)
+that maintains an extensive global dataset ("template") and offspring per-stream datasets ("specializations.")
+This means that it will accumulate stream-specific knowledge over time, adapting to the features of each
+particular traffic flow.
+
+VLA is a memory-extensive technology and warrants the increased pricing of plans that provide it.

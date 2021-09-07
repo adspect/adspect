@@ -47,19 +47,19 @@ white page of stream A.
 
 ## Dedicated IP Blacklist Stream
 
-Streams have a useful “Blacklist all IP addresses in “Review” mode” setting for collecting IP blacklists
-of moderators during the “Review” phase of stream lifecycle. This setting may be used to create a dedicated
+Streams have a useful "Blacklist all IP addresses in "Review" mode" setting for collecting IP blacklists
+of moderators during the "Review" phase of stream lifecycle. This setting may be used to create a dedicated
 stream for the purpose of collecting a single blacklist of all moderators, bots, etc.
 
 The process is as follows:
 
 1. Create a separate stream that will be used for accumulating IP addresses in its blacklist. Set and leave
-   it in the “Review” mode and enable the “Blacklist all IP addresses in “Review” mode” setting. Effectively,
+   it in the "Review" mode and enable the "Blacklist all IP addresses in "Review" mode" setting. Effectively,
    this means that the stream will blacklist IP addresses of every visitor.
 
 2. Use the stream's `index.php` file as a white page for other streams as described in [Stream Chaining](tips.html#stream-chaining) above.
    This will direct all bad visitors to the blacklisting stream, making it collect their IP addresses.
-   Alternatively, you may use the stream as a white page only during the “Review” phase of other streams to
+   Alternatively, you may use the stream as a white page only during the "Review" phase of other streams to
    exclude IP addresses of regular bots from the blacklist as it may possibly lead to false positives
    (please read [this chapter](filtering.html#blacklisting) for an explanation of why this may happen.)
 
@@ -82,6 +82,6 @@ Adspect at the rear side of the cloaker chain and create a special setup with tw
   in order to collect an IP address blacklist of visitors that the front-side cloaker deems dangerous and
   additionally train our [VLA](vla.md) machine learning system on their results. This data lets us absorb
   their filtering techniques and make Adspect more comprehensive and precise. You should always enable the
-  “Blacklist all IP addresses in “Review” mode” setting as described in the section above in order to populate
+  "Blacklist all IP addresses in "Review" mode" setting as described in the section above in order to populate
   the IP address blacklist automatically. Set both money and white pages of the stream to the real white
-  page that you intend to cloak with. Leave the stream in “Review” mode.
+  page that you intend to cloak with. Leave the stream in "Review" mode.

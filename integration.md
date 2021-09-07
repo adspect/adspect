@@ -64,8 +64,8 @@ above all other code:
 <?php require __DIR__ . '/filter.php' ?>
 ```
 
-If your site is written in pure HTML, then you may safely rename your `index.html` or any other HTML file to `index.php` or
-any other name ending in `.php` before adding the code to it.
+If your site is written in pure HTML, then you may safely change the extension of your file from `.html` to `.php`
+before adding our line of code to it.
 
 If you added the code into your white page, then leave the White Page field empty in the stream settings. Empty field means
 "no action", i.e. Adspect will not take any action, leaving the visitor on their current page which is the white page.
@@ -82,7 +82,10 @@ WordPress has a file named `index.php` in its [root folder](https://www.wpbeginn
 That is the file where you should add that single line of PHP code discussed above. Place the `filter.php` file into the same folder.
 
 Most other PHP-based CMS software also has such `index.php` entryway files in their root folders.
-**Please note:** WordPress updates will overwrite this `index.php` file, thereby removing our integration code.
+
+**Please note: WordPress updates will overwrite this `index.php` file, thereby removing our integration code!**
+If your WordPress-based stream suddenly stopped registering clicks in Adspect reporting, then the likely cause
+is recent WordPress update, and you should redo integration.
 
 ## JavaScript integration
 
