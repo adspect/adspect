@@ -20,7 +20,7 @@
 # -- Project information -----------------------------------------------------
 
 project = u'Adspect'
-copyright = u'2020, Adspect'
+copyright = u'2019‒2021, Adspect'
 author = u'Adspect'
 
 # The short X.Y version

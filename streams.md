@@ -14,8 +14,7 @@ pages and leave the rest to Adspect.
 
 Stream name is just a human-readable identifier that lets you distinguish between different streams. It is a good
 idea to match stream names with ad campaigns on one-to-one basis to maintain consistency and clarity across your
-traffic sources and Adspect. We also recommend that you create one stream per GEO (country) to make obtaining per-GEO
-statistics easier.
+traffic sources and Adspect.
 
 ### Mode
 
@@ -45,7 +44,9 @@ before actual traffic starts coming.
 This setting lets you enable or disable internal IP address blocklists.  These blocklists consist of a proprietary
 database collected and maintained by Adspect, a dozen of third party data sources provided by commercial IP address
 scoring and risk assessment companies, and databases of several competing cloaking services (both collected and
-integrated via API.)  **It is strongly recommended to enable this setting regardless of your use case.**
+integrated via API.)
+
+**It is strongly recommended to enable this setting regardless of your use case.**
 
 ### Enable JavaScript Fingerprinting
 
@@ -545,7 +546,7 @@ Rule argument supports all the same string interpolation macros available for mo
 
 ## User Agent Lists
 
-This setting allows you to specify lists of custom [Perl-compatible regular expressions (PCRE)](https://www.pcre.org/original/doc/html/pcrepattern.html)
+This section allows you to specify lists of custom [Perl-compatible regular expressions (PCRE)](https://www.pcre.org/original/doc/html/pcrepattern.html)
 for filtering visitors by their [user agent string](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/User-Agent).
 Regular expression matching is case-sensitive. By default, the search is done in any part of the user agent string;
 you may use [anchors](https://www.pcre.org/original/doc/html/pcrepattern.html#SEC6) to bind matching to the start
