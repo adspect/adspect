@@ -15,6 +15,5 @@ Adspect Documentation
    reporting
    recommendations
    tips
-   pitfalls
    ref-program
    api

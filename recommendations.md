@@ -106,6 +106,46 @@ successful cloaking, the exact list of which may differ depending on particular 
     type) after bans--each time a file is downloaded a new unique JavaScript fingerprinting code is generated
     for it, ensuring that the code will not be detected as malicious or suspicious.
 
+## Do Not Stand Out!
+
+Most ad networks have a routine practice of reviewing all advertising campaigns every once in a while.
+Apart from helping you pass the initial review after launching a new campaign, the first and foremost
+task of any cloaking service is to protect your running campaigns from these recurring reviews.
+Adspect does this very efficiently, proven by many successful campaigns in different ad networks.
+
+But there's a catch: if your advertising activity stands out compared to an average advertiser as
+perceived by a particular network, it will eventually attract attention of their policy-enforcing team,
+invoke manual and detailed scrutiny, and will inevitably lead to "piercing the cloak" and suspension.
+We can guarantee solid protection from routine reviews, but no service can protect you from determined
+investigators driven by suspicion.
+
+Remember: *do not stand out!* If you slip somehow and put network staff on alert, then you're done.
+There's no coming back from that one. Here are some common preventive guidelines:
+
+* Do not run ridiculous amounts of traffic from a single account. High volume indicates consistent
+  profitability and thereby raises interest in the nature of your campaigns.
+* Keep the number of active campaigns per account low. More campaigns = more things to inspect and uncover.
+* Always use a tracker. Continuous affiliate campaigns run without any tracking prompts an observer
+  to wonder how it is possible to sustain them on profitable level.
+* Always use tracking parameters with macros supported by the network. This tip is related to the one
+  above and is especially crucial for campaigns with wide targeting settings.
+* Use postback feature, if supported by the network.
+
+These considerations outline the principle of division of responsibility: Adspect is responsible for
+protecting you from regular campaign reviews, and you are responsible for not attracting attention.
+
+## Avoid Redirects
+
+One notable drawback of cloud-based services like Adspect is that they contribute to overall latency
+of click processing because of round-trip network lags between your tracker and the service's backend
+servers. If you observe high technical loss in the "Reporting" section, then it may indicate a network
+latency problem.
+
+We highly recommend to keep your redirect chains as short as possible. Host your own landing pages with
+file-based display mechanism instead of redirects to external URLs ([detailed here](streams.html#money-page).)
+Put tracker either before or after our `index.php` file in the traffic flow, but not at both sides.
+Place your tracker geographically close to your target country or region, if possible.
+
 ## Facebook Pixel
 
 If you must use Facebook Pixel to signal conversion events from your money page, then **do not** do so using
