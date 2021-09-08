@@ -16,7 +16,7 @@ relative to this base URL. Stream IDs used in API methods should be speficied as
 
 Currently, only stream management methods have been implemented.
 
-## Stream Fields
+## Stream Object
 
 Each stream is represented as a JSON object that contains the following properties:
 
@@ -24,23 +24,25 @@ Each stream is represented as a JSON object that contains the following properti
 * `account_id` -- full account ID in UUID format, read-only;
 * `name` -- stream name, string;
 * `mode` -- stream mode, string, either `Filter`, `Review`, `Money`, or `White`;
+* `enable_fp` -- JavaScript fingerprints enabled flag, boolean or integer;
+* `paranoid` -- paranoid mode on flag, boolean or integer;
+* `allow_apps` -- mobile apps allowed flag, boolean or integer;
 * `money_pages` -- array of one or more (up to 254) money page objects, each having the following format:
   * `page` -- URL / file path / code (depending on action), string;
   * `action` -- action to perform for the visitor, string, one of: `local`, `proxy`, `xar`, `xsf`, `return`, `noop`, `301`, `302`, `303`, `refresh`, `meta`, `iframe`, `php`, `js`;
   * `arg_passthru` -- whether to perform URL parameters passthru, boolean;
   * `weight` -- relative weight for A/B traffic distribution, integer;
   * `enabled` -- whether this money page is enabled, boolean;
+* `rotator` -- money page rotator, string, either `Split` or `Timer`;
 * `safe_pages` -- array of exactly one safe page object of the following format:
   * `page` -- URL / file path / code (depending on action), string;
   * `action` -- action to perform for the visitor, string, one of: `local`, `proxy`, `xar`, `xsf`, `return`, `noop`, `301`, `302`, `303`, `refresh`, `meta`, `iframe`, `php`, `js`;
   * `arg_passthru` -- whether to perform URL parameters passthru, boolean;
-* `ml_precision` -- VLA precision in percents, integer;
+* `ml_precision` -- [VLA machine learning](vla.md) precision in percents, integer;
+* `hll_threshold` -- HyperLogLog threshold, integer in the [1; 50] range;
 * `cost_parameter` -- parameter name for click cost accounting, string;
 * `sid_parameter` -- sub ID parameter name, string;
 * `cid_parameter` -- click ID parameter name, string;
-* `enable_fp` -- JavaScript fingerprints enabled flag, boolean or integer;
-* `paranoid` -- paranoid mode on flag, boolean or integer;
-* `allow_apps` -- mobile apps allowed flag, boolean or integer;
 * `countries` -- array of allowed country strings in [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) format;
 * `os` -- array of allowed operating system strings:
   * `Android 1`
@@ -135,45 +137,28 @@ Example:
          "enabled": true
       }
    ],
+   "rotator": "Split",
    "safe_pages": [
       {
          "page": "safe.html",
          "action": "local",
-         "arg_passthru": true,
+         "arg_passthru": true
       }
    ],
    "ml_precision": 95,
    "cost_parameter": "cost",
    "sid_parameter": "zoneid",
-   "cid_parameter": "",
-   "enable_fp": 1,
-   "paranoid": 0,
-   "allow_apps": 1,
-   "countries": [
-      "CA",
-      "US"
-   ],
-   "os": [
-      "iOS",
-      "macOS"
-   ],
-   "browsers": [
-      "Google Chrome"
-   ],
-   "engines": [
-      "Blink"
-   ],
-   "languages": [
-      "en",
-      "fr",
-      "es",
-   ],
-   "timezones": [
-      -5,
-      -6,
-      -7,
-   ],
-   "tz_match_ip": 1,
+   "cid_parameter": "clickid",
+   "enable_fp": true,
+   "paranoid": false,
+   "allow_apps": true,
+   "countries": ["CA", "US"],
+   "os": ["iOS", "macOS"],
+   "browsers": ["Google Chrome"],
+   "engines": ["Blink"],
+   "languages": ["en", "fr", "es"],
+   "timezones": [-5, -6, -7],
+   "tz_match_ip": true,
    "url_rules": [
       {
          "param": "secretkey",
@@ -182,8 +167,7 @@ Example:
          "enabled": true
       }
    ],
-   "referer_regex": "",
-   "ip_on_review": 1
+   "ip_on_review": true
 }
 ```
 

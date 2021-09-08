@@ -511,7 +511,7 @@ is specified. If a daypart does not specify days of week, then it is applied to 
 
 ## URL Rules
 
-This section allows you to create up to 30 custom rules for checking and manipulating URL parameters. Each rule
+This section allows you to create up to 64 custom rules for checking and manipulating URL parameters. Each rule
 consists of:
 
 * Parameter name -- this is the name of the URL parameter that will be checked or altered;
