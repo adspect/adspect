@@ -8,13 +8,17 @@ in which API key is supplied as username and password is left blank. You may fin
 Each API request must contain two mandatory headers:
 
 1. `Content-Type: application/json` to indicate the use of JSON data encoding;
-2. `Authorization: Basic ###` to authorize access, where `###` is `base64(API key + ":")`.
+2. `Authorization: Basic <authKey>` to authenticate yourself to Adspect.
+
+The `<authKey>` field in the Authorization header is formed as follows (example PHP code):
+
+```php
+$apiKey = 'SEbMw152aoe2ArffS7yjEJzJ_MFnd33e';
+$authKey = base64_encode($apiKey . ':');
+```
 
 The base URL for all API methods is `https://api.adspect.net/v1/`. Descriptions below specify paths
-relative to this base URL. Stream IDs used in API methods should be speficied as full UUIDs, e.g.
-`cbb360ff-5a28-41d0-9ac8-9889a01149fa`.
-
-Currently, only stream management methods have been implemented.
+relative to this base URL.
 
 ## Stream Object
 
