@@ -1,4 +1,4 @@
-# VLA™
+# VLA™ Machine Learning
 
 VLA™ stands for Virtual Learning Appliance.  It is the trademark of our machine learning technology
 that powers the most advanced filtering capabilities of Adspect. In simple terms, it is a self-adapting
@@ -33,7 +33,7 @@ own idea of what is "confident enough". Our tests have shown that 95% is a good 
 ## Technical Notes
 
 Under the hood, VLA is a self-taught discrete [Bayes classifier](https://en.wikipedia.org/wiki/Bayes_classifier)
-that maintains an extensive global dataset ("template") and offspring per-stream datasets ("specializations.")
+that maintains an extensive global dataset (template) and offspring per-stream datasets (specializations.)
 This means that it will accumulate stream-specific knowledge over time, adapting to the features of each
 particular traffic flow.
 

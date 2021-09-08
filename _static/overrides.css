@@ -1,0 +1,9 @@
+.wy-side-nav-search {
+	background: transparent !important;
+}
+.wy-menu.wy-menu-vertical > .caption {
+	display: none !important;
+}
+.wy-breadcrumbs-aside {
+	display: none !important;
+}
