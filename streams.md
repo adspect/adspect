@@ -303,21 +303,21 @@ Adspect supports several URL macros that you can use in money and white page fie
 * `{tags}` -- [click processing tags](reporting.html#raw-report-columns), if any;
 * `{p:parameter}` -- value of the named parameter in the request URL.
 
-In zero redirect (file-based) display mechanism, you may still add parameters with macros after the file name of your
+When using the local file action, you may still add parameters with macros after the file name of your
 money/white page, and they will be parsed and made available in PHP in the
 [`$_GET` superglobal variable](https://www.php.net/manual/en/reserved.variables.get.php).
 
-Redirect example:
+URL example:
 ```
 https://example.com/offer?clickid={clickid}&geo={country}&os={os}
 ```
 
-Zero redirect example:
+Local file example:
 ```
 page.php?clickid={clickid}&geo={country}&os={os}
 ```
+Values of these macros may be accessed in page code as follows:
 ```php
-<!-- Inside page.php file -->
 <a href="https://example.com/offer?clickid=<?= $_GET['clickid'] ?>">Offer</a>
 ```
 
