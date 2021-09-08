@@ -25,12 +25,15 @@ Each stream is represented as a JSON object that contains the following properti
 * `name` -- stream name, string;
 * `mode` -- stream mode, string, either `Filter`, `Review`, `Money`, or `White`;
 * `money_pages` -- array of one or more (up to 254) money page objects, each having the following format:
-  * `page` -- target URL or page file name, string;
+  * `page` -- URL / file path / code (depending on action), string;
+  * `action` -- action to perform for the visitor, string, one of: `local`, `proxy`, `xar`, `xsf`, `return`, `noop`, `301`, `302`, `303`, `refresh`, `meta`, `iframe`, `php`, `js`;
   * `arg_passthru` -- whether to perform URL parameters passthru, boolean;
   * `weight` -- relative weight for A/B traffic distribution, integer;
   * `enabled` -- whether this money page is enabled, boolean;
-* `white_page` -- white page URL or file name, string;
-* `white_arg_passthru` -- whether to perform URL parameters passthru to white page, boolean or integer;
+* `safe_pages` -- array of exactly one safe page object of the following format:
+  * `page` -- URL / file path / code (depending on action), string;
+  * `action` -- action to perform for the visitor, string, one of: `local`, `proxy`, `xar`, `xsf`, `return`, `noop`, `301`, `302`, `303`, `refresh`, `meta`, `iframe`, `php`, `js`;
+  * `arg_passthru` -- whether to perform URL parameters passthru, boolean;
 * `ml_precision` -- VLA precision in percents, integer;
 * `cost_parameter` -- parameter name for click cost accounting, string;
 * `sid_parameter` -- sub ID parameter name, string;
@@ -105,7 +108,6 @@ Each stream is represented as a JSON object that contains the following properti
     * `DELETE` -- delete parameter;
   * `arg` -- rule argument, string;
   * `enabled` -- rule enabled flag, boolean;
-* `ua_regex` **(obsolete, will be removed)** -- regular expression for the user agent filter, string;
 * `referer_regex` **(obsolete, will be removed)** -- regular expression for the referer filter, string;
 * `ip_on_review` -- blacklist IP addresses in "Review" mode flag, boolean or integer.
 
@@ -120,22 +122,29 @@ Example:
    "money_pages": [
       {
          "page": "https://example.com/offer1?clid={clickid}",
+         "action": "302",
          "arg_passthru": true,
          "weight": 10,
          "enabled": true
       },
       {
          "page": "https://example.com/offer2?clid={clickid}",
+         "action": "302",
          "arg_passthru": true,
          "weight": 20,
          "enabled": true
       }
    ],
-   "white_page": "white.html",
-   "white_arg_passthru": 0,
+   "safe_pages": [
+      {
+         "page": "safe.html",
+         "action": "local",
+         "arg_passthru": true,
+      }
+   ],
    "ml_precision": 95,
    "cost_parameter": "cost",
-   "sid_parameter": "sourceid",
+   "sid_parameter": "zoneid",
    "cid_parameter": "",
    "enable_fp": 1,
    "paranoid": 0,
@@ -173,47 +182,26 @@ Example:
          "enabled": true
       }
    ],
-   "ua_regex": "",
    "referer_regex": "",
    "ip_on_review": 1
 }
 ```
 
-## GET /streams
+## Methods
 
-Returns an array of all streams in the account.
+* `GET /streams` -- returns an array of all streams in the account;
+* `GET /streams/<id>` -- returns a specified stream;
+* `POST /streams` -- creates and returns a new stream; send stream object in JSON format in request body;
+* `PATCH /streams/<id>` -- updates a stream; send stream object in JSON format in request body;
+* `COPY /streams/<id>` -- copies a stream; send stream object in JSON format in request body
+  (its settings will overwrite settings in the copy, just like in `PATCH` method);
+* `DELETE /streams/<id>` -- deletes a stream.
 
-## GET /streams/&lt;id&gt;
-
-Returns a specified stream.
-
-## POST /streams
-
-Creates and returns a new stream. Send stream object in JSON format in request body.
-
-## COPY /streams/&lt;id&gt;
-
-Copies a stream. Send stream object in JSON format in request body.
-
-## PATCH /streams/&lt;id&gt;
-
-Updates a stream. Send stream object in JSON format in request body.
-
-## DELETE /streams/&lt;id&gt;
-
-Deletes a stream.
-
-## index.php, filter.php, and ajax.php
+## PHP Files
 
 You may obtain `index.php`, `filter.php`, and `ajax.php` files for any stream via the following requests:
 
-* `index.php` / `filter.php` -- `GET https://clients.adspect.ai/getindex.php?sid=<id>&mode=<mode>`
+* `index.php` and `filter.php` -- `GET https://clients.adspect.ai/getindex.php?sid=<id>`
 * `ajax.php` -- `GET https://clients.adspect.ai/getindex.php?sid=<id>&mode=ajax`
 
-Where `<mode>` is one of:
-
-* `redirect` -- redirect to remote URL via HTTP 302 status code;
-* `iframe` -- display remote URL on your domain inside an `<iframe>` tag;
-* `proxy` -- display remote URL on your domain by HTTP request proxying.
-
-`index.php` and `filter.php` files are identical.
+Replace `<id>` with an actual Adspect stream ID.
