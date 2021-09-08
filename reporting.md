@@ -28,22 +28,22 @@ displayed for more comprehensivess.
 
 The list of statistical columns, explained:
 
-* Clicks -- the total number of clicks that accessed the `index.php` file.
+* **Clicks** -- the total number of clicks that accessed the `index.php` file.
 
-* Uniques -- approximate number of unique visitors are per uniqueness of their IP addresses.
+* **Uniques** -- approximate number of unique visitors are per uniqueness of their IP addresses.
 
-* FP -- the number of visitors that successfully executed our JavaScript fingerprint collector code and
+* **FP** -- the number of visitors that successfully executed our JavaScript fingerprint collector code and
   submitted their fingerprints for analysis. This figure may be lower than the total number of clicks for various
   reasons, most often it being the inability of dumb click bots to run JavaScript.
 
-* Money hits -- how many visitors have been shown the money page. This is the best metric for accounting legitimate
+* **Money hits** -- how many visitors have been shown the money page. This is the best metric for accounting legitimate
   traffic. Please note that this also includes all visitors when the stream works in the All Money mode.
 
-* White hits -- how many visitors have or would have been shown the white page. This metric is calculated as
+* **White hits** -- how many visitors have or would have been shown the white page. This metric is calculated as
   clicks minus money hits and includes those dumb bots that would have been show the white page if they were
   able to execute JavaScript (there's a fallback "meta refresh" mechanism to deal with them.)
 
-* GIVT -- [general invalid traffic](https://insider.integralads.com/givt-vs-sivt-invalid-traffic/), which is
+* **GIVT** -- [general invalid traffic](https://insider.integralads.com/givt-vs-sivt-invalid-traffic/), which is
   computed as the number of visitors that failed to produce a fingerprint. As mentioned
   above, these are often dumb bots with limited JavaScript support. Another common reason is network latency,
   especially evident in traffic with slow connection rates when visitors manage to close the tab or window before
@@ -52,38 +52,38 @@ The list of statistical columns, explained:
   performed in these modes. We plan to change this logic in future to make this column reflect real GIVT more
   precisely and transparently.
 
-* SIVT -- [sophisticated invalid traffic](https://insider.integralads.com/givt-vs-sivt-invalid-traffic/), that is,
+* **SIVT** -- [sophisticated invalid traffic](https://insider.integralads.com/givt-vs-sivt-invalid-traffic/), that is,
   the number of fingerprints that Adspect consciously filtered out as bad traffic. This may serve as
   a rough traffic quality metric with respect to the more advanced types of click fraud that get more spread today.
   This metric also includes visitors blocked by manual stream filters (country, OS, browser, regular expressions,
   IP address blacklist.)
 
-* Cost -- total traffic cost computed as a sum of costs of each click, if passed via URL parameter.
+* **Cost** -- total traffic cost computed as a sum of costs of each click, if passed via URL parameter.
 
-* Bots cost -- cost of the traffic that was directed to the white page, which is the precise metric of your budget loss.
+* **Bots cost** -- cost of the traffic that was directed to the white page, which is the precise metric of your budget loss.
 
-* Quality -- percentage of money hits in the whole click volume. This is the the best metric for evaluating
+* **Quality** -- percentage of money hits in the whole click volume. This is the the best metric for evaluating
   traffic quality as a whole and may be used to compare different traffic sources, publishers, ad spots, etc.
   Especially useful with grouping by sub ID for compiling blacklists of bot-ridden zones, as described in
   a [dedicated parapgraph](use-cases.html#detecting-bot-zones).
 
-* Conversions -- total number of conversions as accounted via the postback mechanism.
+* **Conversions** -- total number of conversions as accounted via the postback mechanism.
 
-* CR -- conversion rate computed as conversions / clicks.
+* **CR** -- conversion rate computed as conversions / clicks.
 
-* Revenue -- gross revenue of the funnel as accounted via the postback mechanism.
+* **Revenue** -- gross revenue of the funnel as accounted via the postback mechanism.
 
-* Profit -- net profit computed as revenue − cost.
+* **Profit** -- net profit computed as revenue − cost.
 
-* ROI -- return of investment computed as profit / cost.
+* **ROI** -- return of investment computed as profit / cost.
 
-* CPC / CPM -- cost per click computed as cost / clicks, and cost per mille computed as CPC × 1000.
+* **CPC / CPM** -- cost per click computed as cost / clicks, and cost per mille computed as CPC × 1000.
 
-* CPA -- cost per action computed as cost / conversions.
+* **CPA** -- cost per action computed as cost / conversions.
 
-* EPL -- earn per lead computed as revenue / conversions.
+* **EPL** -- earn per lead computed as revenue / conversions.
 
-* eCPM -- effective cost per mille computed as revenue / clicks × 1000.
+* **eCPM** -- effective cost per mille computed as revenue / clicks × 1000.
 
 ## Raw Reports
 
