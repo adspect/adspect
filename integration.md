@@ -67,11 +67,11 @@ above all other code:
 If your site is written in pure HTML, then you may safely change the extension of your file from `.html` to `.php`
 before adding our line of code to it.
 
-If you added the code into your white page, then leave the White Page field empty in the stream settings. Empty field means
-"no action", i.e. Adspect will not take any action, leaving the visitor on their current page which is the white page.
-Likewise, if you added the code into your money page, then leave the Money Page field of your stream empty.
-
 Once set up, you then simply direct traffic to the page you added the code into.
+
+If you added the code into your white page, then specify "No action" for a safe page action in stream settings.
+Adspect will not take any action, leaving the visitor on their current page which is the white page.
+Likewise, if you added the code into your money page, then specify "No action" for your money page in settings.
 
 ### WordPress and Other CMS
 

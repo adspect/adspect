@@ -3,7 +3,7 @@
 ## What is Adspect
 
 [**Adspect**](https://www.adspect.ai/) is an easy-to-use cloud-based service for protecting affiliate campaigns
-(CPA offers, landing pages) from "bad" traffic. By bad traffic we mean:
+(CPA offers, landing pages) from unwanted traffic. By unwanted traffic we mean:
 
 * **moderators and policy teams** of ad networks
 * [click fraud](https://en.wikipedia.org/wiki/Click_fraud), ubiquitous in display ads and popunder
@@ -11,9 +11,16 @@
 * [content scrapers](https://en.wikipedia.org/wiki/Web_scraping)
 * [credential stuffing bots](https://en.wikipedia.org/wiki/Credential_stuffing)
 * bots of antivirus companies
-* and other flavors of unwanted or outright hostile visitors
+* and other flavors of questionable or outright hostile visitors
 
-You may find additional information in our [FAQ](https://www.adspect.ai/faq).
+It works as follows: visitors (traffic of any kind: ads, e-mail, organic, etc.) get their intrinsic attributes collected
+and evaluated by our special PHP script before getting to their final destination.  Adspect runs more than a hundred checks
+on each click and produces a verdict whether a visitor is relevant or unwanted.  Relevant visitors are brought to
+your actual money-making content (the so-called "money page") whereas unwanted visitors are shown a different version
+of content that does not expose anything sensitive (the so-called "safe page.")  What to consider "sensitive" is your
+private choice: *traffic does not cross Adspect servers directly,* so we enforce no policies regarding its nature.
+
+You may find quick answers to frequently asked questions in our [FAQ](https://www.adspect.ai/faq).
 
 ## Traffic Sources
 
@@ -55,40 +62,6 @@ We support several types of integration that differ in technical details and use
 * JavaScript integration via `<script>` HTML tag embedding using a remote `ajax.php` file
 
 More details will be given later in the [Integration](integration.md) chapter.
-
-### Forward PHP Integration
-
-In forward PHP integration filtering is done by a special `index.php` file that you place in your landing page directory
-or elsewhere accessible via HTTP. This file acts as an entry point for web traffic and is wired to our servers that
-process clicks and make decisions. Depending on filtering decision a visitor may be directed to your actual page or to
-a "white page", that is, a page that contains no sensitive content. In other words, Adspect acts as an intermediary stage
-in your traffic flow, actively filtering unwanted traffic from legitimate visitors.
-
-![Traffic flow chart](_static/int-php-en.png "Forward PHP integration")
-
-Forward PHP integration is the most common type of integration.
-
-### Reverse PHP Integration
-
-There's also a slightly different reverse PHP integration that uses a `filter.php` file which is included into your
-PHP page file (normally your white page) via a single line of PHP code. Traffic lands directly on this page, our code
-in the `filter.php` file inspects it and chooses either to keep the visitor on the page or display a different one.
-
-![Traffic flow chart](_static/int-js-en.png "Reverse PHP integration")
-
-Reverse PHP integration is useful for integrating Adspect into sites based on WordPress or similar CMS
-([content management systems](https://en.wikipedia.org/wiki/Content_management_system).)
-
-### JavaScript integration
-
-JavaScript integration is meant to be used with third party services like Shopify, Blogspot, or Tilda, where you cannot
-upload custom PHP files to do PHP integration. Traffic flow is much like in reverse PHP integration: visitors come to
-the white page first, then legitimate ones are displayed the money page whereas moderators and bots are left where they are.
-
-![Traffic flow chart](_static/int-js-en.png "JavaScript integration")
-
-You will also need to download a PHP file called `ajax.php` and host it somewhere, but its final location does not
-matter as it will be linked into the white page using a `<script>` HTML tag.
 
 ## Adspect PHP Files
 
