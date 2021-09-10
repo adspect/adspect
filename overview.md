@@ -6,11 +6,12 @@
 (CPA offers, landing pages) from unwanted traffic. By unwanted traffic we mean:
 
 * **moderators and policy teams** of ad networks
+* bots of antivirus companies
 * [click fraud](https://en.wikipedia.org/wiki/Click_fraud), ubiquitous in display ads and popunder
 * spy services used by competitors to steal your creatives and landing pages
+* competing advertisers themselves
 * [content scrapers](https://en.wikipedia.org/wiki/Web_scraping)
 * [credential stuffing bots](https://en.wikipedia.org/wiki/Credential_stuffing)
-* bots of antivirus companies
 * and other flavors of questionable or outright hostile visitors
 
 It works as follows: visitors (traffic of any kind: ads, e-mail, organic, etc.) get their intrinsic attributes collected
@@ -39,6 +40,7 @@ advertising networks, including:
 * ExoClick
 * Taboola
 * MGID
+* PropellerAds
 * TrafficStars
 * **and hundreds of others**
 
@@ -46,10 +48,14 @@ We also protect your landing pages and offers from various antivirus, security, 
 
 * **Google Safe Browsing**
 * **GeoEdge**
+* The Media Trust
+* Confiant
+* AdSecure
+* Ad Lightning
 * Integral Ad Science
 * Kaspersky Labs
 * Avast
-* Forcepoint
+* NortonLifeLock
 * residential and mobile proxies, **including Luminati and GeoSurf**
 * and many others
 
