@@ -34,14 +34,15 @@ advertising networks, including:
 * **TikTok**
 * **Microsoft Advertising (Bing Ads)**
 * Yandex.Direct
+* Snapchat
 * myTarget
 * VK
 * ZeroPark
 * ExoClick
 * Taboola
+* Outbrain
 * MGID
 * PropellerAds
-* TrafficStars
 * **and hundreds of others**
 
 We also protect your landing pages and offers from various antivirus, security, and ad scoring companies, including:
@@ -61,7 +62,7 @@ We also protect your landing pages and offers from various antivirus, security, 
 
 ## Integration
 
-We support several types of integration that differ in technical details and use cases:
+Adspect supports three integration types that differ in technical details and use cases:
 
 * Forward PHP integration via a standalone `index.php` file
 * Reverse PHP integration via including a `filter.php` file
@@ -69,21 +70,30 @@ We support several types of integration that differ in technical details and use
 
 More details will be given later in the [Integration](integration.md) chapter.
 
-## Adspect PHP Files
+## System Requirements
 
-The fact that we use PHP scripts to filter traffic naturally implies that you need a PHP-enabled web hosting provider or
-a tracker with support for landing pages written in PHP. Our files are referred to throughout the documentation as
-`index.php`, `filter.php`, and `ajax.php`, but you may rename them however you like.
+Here's a list of system requirements for using Adspect:
 
-The code is carefully written to be compatible with a wide variety of web hosting environments, ranging from
-virtual hosting and VPS to dedicated servers and Amazon AWS. Both Windows and Unix-like operating systems are
-supported, to the extent supported by PHP. **PHP 5.6 or higher is required!**
+* Shared hosting / VPS / dedicated server
+* PHP 5.6 or newer
+* [php-curl](https://www.php.net/manual/en/book.curl.php) extension
+* [php-json](https://www.php.net/manual/en/book.json.php) extension
 
-**The only requirement is that PHP needs to have [cURL support](https://www.php.net/manual/en/book.curl.php)**.
-You may check if cURL is supported by examining [phpinfo](https://www.php.net/manual/en/function.phpinfo.php).
-Usually cURL support may be enabled by installing the `php-curl` package.
+You may obtain information about your PHP setup using the following script:
 
-**Do not use Namecheap shared hosting!** Please see the [Best Practices](recommendations.md) chapter for details.
+```php
+<?php phpinfo();
+```
+
+## Hosting
+
+**Do not use the following hosting providers:**
+
+* Namecheap shared hosting
+* UkrNames
+* Ukraine.com.ua
+
+All of them are known to randomly block POST requests used by Adspect to transmit device fingerprints.
 
 ## Workflow
 

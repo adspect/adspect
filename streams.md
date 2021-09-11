@@ -130,9 +130,8 @@ described below for particular actions, two primary types of value are URLs and 
 
 #### Action
 
-This is the action to peform for a visitor.  Adspect supports many different types of actions grouped into a few
-logical classes.  You will normally use just two or three of the most common actions; the rest are meant for
-various special cases.
+This is the action to peform for a visitor.  Adspect supports many different types of actions.
+You will normally use just two or three of the most common actions.
 
 *The actions listed below work as described in PHP integration only.*  JavaScript integration is much more limited
 in its set of available technical tools to perform actions.  Actions that behave differently in JavaScript integration
@@ -166,7 +165,10 @@ are explicitly detailed as such.
   You may also use a path to any non-HTML local file.  The browser will download that file if it cannot display it.
   For example, you may specify your money page as `downloads/app.apk` to cloak direct APK downloads.
 
-  In JavaScript integration, this action performs a JS redirect via the `location.replace()` function.
+  In JavaScript integration, this action loads the page via synchronous XMLHttpRequest and replaces your safe page
+  with it without redirecting.  This will only work if your money and safe pages are on the same domain, or if
+  your money page is served with a proper [Access-Control-Allow-Origin header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin)
+  that allows [cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
 * [**Reverse proxy**](https://en.wikipedia.org/wiki/Reverse_proxy) -- display a remote URL on your domain by smart HTTP request proxying.
   It essentially creates a fully dynamic, navigatable replica of another website.  Most websites are proxied
