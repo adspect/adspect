@@ -6,7 +6,7 @@ We highly encourage you to follow them in order to achieve the best results with
 **WARNING: failure to abide by these recommendations may result in bans and/or dramatic decrease
 in cloaking quality!** Adspect may not be held responsible for any such negative consequences.
 
-## Domains and hosting
+## Domains and Hosting
 
 1. **Do not use** domain names in cheap zones like `.site`, `.club`, `.world`, etc. as they attract more
    thorough and frequent scrutiny from antivirus and ad scoring companies, effectively being tainted

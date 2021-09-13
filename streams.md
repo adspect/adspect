@@ -179,6 +179,15 @@ are explicitly detailed as such.
   Please sit tight: **proxying will work in JavaScript integration mode very soon**, just like the so-called `insert_html`
   modus operandi of other cloakers.
 
+* **Insert HTML code** -- this action is a simpler version of reverse proxy that fetches a remote page and inserts
+  its HTML code into the current page without performing the more complex link substituion to achieve seamless
+  navigation.  This action may be used to display self-contained pages from a remote repository without redirects.
+
+  In JavaScript integration, this action loads the page via synchronous XMLHttpRequest and replaces your safe page
+  with it without redirecting.  This will only work if your money and safe pages are on the same domain, or if
+  your money page is served with a proper [Access-Control-Allow-Origin header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin)
+  that allows [cross-origin resource sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
+
 * [**X-Accel-Redirect header**](https://www.nginx.com/resources/wiki/start/topics/examples/x-accel/) -- server-side redirect
   mechanism supported by NGINX and Cherokee web servers.
 
