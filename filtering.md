@@ -26,8 +26,10 @@ signals that the visitor should not be allowed further. While popular, this appr
 
 Blacklisting is the most common--and often the only--approach used by cloaking services in the
 affiliate marketing domain. While a viable solution in many cases, it is rough and unreliable and cannot be used
-on its own. Blacklist false negatives are the most common reason of cloaking faults. Adspect maintains massive
-built-in IP address blacklists of positively bad traffic sources that count up to one billion addresses.
+on its own. Blacklist false negatives are the most common reason of cloaking faults.
+
+Adspect maintains massive built-in IP address blacklists of positively bad traffic sources that count up to
+**two billion addresses.**
 
 ## Fingerprinting
 
