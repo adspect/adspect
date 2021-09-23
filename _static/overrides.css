@@ -19,3 +19,6 @@ code, code *, pre, pre * {
 .rst-content tt.literal, .rst-content tt.literal, .rst-content code.literal {
 	color: #58b !important;
 }
+.ethical-rtd {
+	display: none !important;
+}
