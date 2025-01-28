@@ -1,0 +1,79 @@
+body {
+	background: #fff !important;
+	color: #000 !important;
+}
+*, h1, h2, h3, h4, h5 {
+	font-family: Inter, -apple-system, "system-ui", "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+h1, h2, h3, h4, h5 {
+	font-weight: 700;
+	letter-spacing: -.03em;
+}
+h1 {
+	font-size: 2.5rem !important;
+}
+a {
+	color: #295ada;
+	font-weight: 600;
+}
+a:hover {
+	color: #214cbc;
+}
+.wy-menu-vertical a:hover {
+	background-color: #dfebff !important;
+}
+.wy-menu-vertical li.current>a, .wy-menu-vertical li.on a {
+	background-color: #fff !important;
+}
+.wy-nav-side {
+	background: linear-gradient(#181818, #1f1f1f) !important;
+	padding-bottom: 0 !important;
+}
+.wy-nav-top {
+	background: #181818 !important;
+}
+.wy-side-nav-search {
+	background: transparent !important;
+}
+.wy-menu.wy-menu-vertical > .caption {
+	display: none !important;
+}
+.wy-breadcrumbs-aside {
+	display: none !important;
+}
+.wy-side-nav-search input[type=text] {
+	border: none !important;
+	border-radius: 6px !important;
+}
+.wy-nav-content, .wy-nav-content-wrap {
+	background: transparent !important;
+}
+.wy-table-responsive table td, .wy-table-responsive table th {
+	white-space: initial !important;
+}
+code, code *, pre, pre * {
+	font-family: "Roboto Mono", monospace !important;
+	font-size: 90% !important;
+}
+.rst-content code, .rst-content tt, code {
+	color: #dc3545 !important;
+	background: initial !important;
+	border: initial !important;
+	padding: initial !important;
+}
+table.docutils {
+	width: 100% !important;
+}
+table.docutils caption {
+	font: initial !important;
+	font-weight: bold !important;
+}
+.rst-versions {
+	display: none !important;
+}
+.ethical-rtd {
+	visibility: hidden !important;
+}
+footer {
+	display: none !important;
+}
